@@ -1,0 +1,18 @@
+# Secrets
+.env
+
+# Python
+backend/venv/
+backend/data.db
+__pycache__/
+*.pyc
+
+# FAISS index (regenerated via /ingest)
+backend/knowledge_base/vectors/
+
+# Internal documents — not for public repo
+Work365_Team_Training_Guides.pdf
+
+# IDE / OS
+.claude/
+.DS_Store

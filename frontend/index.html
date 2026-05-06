@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Work 365 Onboarding Assistant</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Inconsolata:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <div class="topbar-brand">
+      <div class="topbar-logo">W</div>
+      Work 365 Onboarding Assistant
+    </div>
+    <div class="topbar-divider"></div>
+    <span class="topbar-link">Open Power App ↗</span>
+    <div class="topbar-spacer"></div>
+    <div class="topbar-avatar">A</div>
+    <button class="btn-need-help" onclick="openAI('Hi! I need some help with my onboarding.')">Need Help?</button>
+  </header>
+
+  <div class="app-body">
+
+    <!-- LEFT NAV -->
+    <nav class="left-nav" id="left-nav">
+      <div class="nav-user">
+        <div class="nav-user-avatar">A</div>
+        <div class="nav-user-info">
+          <div class="nav-user-name">Company Inc.</div>
+          <div class="nav-user-sub">Alexander Smith</div>
+        </div>
+      </div>
+
+      <div class="nav-items">
+        <div class="nav-item active" data-page="overview" onclick="navigate('overview', this)">Overview</div>
+        <div class="nav-item" data-page="messages" onclick="navigate('messages', this)">Messages</div>
+        <div class="nav-item" data-page="documentation" onclick="navigate('documentation', this)">Documentation</div>
+        <div class="nav-item" data-page="learning" onclick="navigate('learning', this)">Learning Modules</div>
+        <div class="nav-item" data-page="settings" onclick="navigate('settings', this)">Settings</div>
+      </div>
+
+      <div class="nav-bottom">
+        <div class="dyk-card">
+          <div class="dyk-title">💡 Did You Know?</div>
+          <div class="dyk-text" id="dyk-text">Work 365 auto-syncs license changes from Microsoft Partner Center so billing always stays up to date.</div>
+          <button class="btn-explain" id="dyk-explain-btn" onclick="openAI('Can you explain how Work 365 auto-syncs license changes from Microsoft Partner Center?')">Explain to me</button>
+        </div>
+      </div>
+
+      <button class="nav-collapse-btn" id="nav-collapse-btn" onclick="toggleNav()">← Collapse</button>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content" id="main-content">
+
+      <div class="page active" id="page-overview">
+        <!-- Rendered by progress.js -->
+      </div>
+
+      <div class="page" id="page-messages">
+        <!-- Rendered by messages.js -->
+      </div>
+
+      <div class="page" id="page-documentation">
+        <!-- Rendered by docs.js -->
+      </div>
+
+      <div class="page" id="page-learning">
+        <!-- Rendered by learning.js -->
+      </div>
+
+      <div class="page" id="page-settings">
+        <div class="page-inner">
+          <div class="page-mono-label">Settings</div>
+          <div class="settings-card">
+            <div class="settings-card-title">Account Settings</div>
+            <div class="settings-card-body">Manage your Company Inc. account preferences, notification settings, and onboarding configuration here.</div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- AI SIDEBAR -->
+    <aside class="ai-sidebar" id="ai-sidebar">
+      <div class="ai-inner">
+
+        <div class="ai-header">
+          <div class="ai-header-left">
+            <div class="ai-pulse"></div>
+            AI Assistant
+          </div>
+          <button class="ai-close-btn" onclick="closeAI()" title="Close panel">×</button>
+        </div>
+
+        <div class="ai-msgs" id="ai-msgs"></div>
+
+        <div class="ai-chips-wrap" id="ai-chips"></div>
+
+        <div class="ai-input-row">
+          <input
+            class="ai-input"
+            id="ai-input"
+            type="text"
+            placeholder="Ask a question…"
+            autocomplete="off"
+          >
+          <button class="ai-send" id="ai-send-btn">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M10 6H2M7 3l3 3-3 3"/>
+            </svg>
+          </button>
+        </div>
+
+      </div>
+    </aside>
+
+  </div><!-- /app-body -->
+
+  <script src="js/app.js"></script>
+  <script src="js/assistant.js"></script>
+  <script src="js/progress.js"></script>
+  <script src="js/messages.js"></script>
+  <script src="js/docs.js"></script>
+  <script src="js/learning.js"></script>
+  <script src="js/highlight.js"></script>
+
+</body>
+</html>
