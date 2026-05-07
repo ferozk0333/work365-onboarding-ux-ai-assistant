@@ -35,9 +35,10 @@ def health():
 FRONTEND_DIR = Path(__file__).parent.parent / "frontend"
 
 if FRONTEND_DIR.exists():
-    app.mount("/assets", StaticFiles(directory=FRONTEND_DIR / "assets"), name="assets")
-    app.mount("/css",    StaticFiles(directory=FRONTEND_DIR / "css"),    name="css")
-    app.mount("/js",     StaticFiles(directory=FRONTEND_DIR / "js"),     name="js")
+    for _name in ("assets", "css", "js"):
+        _dir = FRONTEND_DIR / _name
+        if _dir.exists():
+            app.mount(f"/{_name}", StaticFiles(directory=_dir), name=_name)
 
     @app.get("/", response_class=FileResponse)
     def serve_index():
