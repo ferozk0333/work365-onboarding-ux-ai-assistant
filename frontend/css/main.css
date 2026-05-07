@@ -67,10 +67,10 @@
   --t-14: 14px;
   --t-13: 13px;
   --t-12: 12px;
-  --t-11: 11px;
-  --t-10: 10px;
-  --t-9:  9px;
-  --t-8:  8px;
+  --t-11: 12px;
+  --t-10: 12px;
+  --t-9:  11px;
+  --t-8:  10px;
 
   /* ── Letter spacing ── */
   --ls-hero:     -1.1px;
@@ -103,7 +103,7 @@
   /* ── Layout ── */
   --nav-w:     220px;
   --sidebar-w: 300px;
-  --topbar-h:  48px;
+  --topbar-h:  52px;
 
   /* Universal border-radius — 4px everywhere, 50% for avatars only */
   --r:  4px;
@@ -162,6 +162,7 @@ body {
   padding: 0 var(--sp-4);
   gap: var(--sp-3);
   border-bottom: 1px solid var(--border-faint);
+  box-shadow: 0 4px 4px rgba(0,0,0,0.10);
   background: transparent;
   position: relative;
   z-index: 200;
@@ -334,10 +335,10 @@ body {
 }
 .nav-item:hover { background: var(--surface); color: var(--ink); }
 .nav-item.active {
-  background: var(--blue-soft);
+  background: #f1f6fd;
   color: var(--ink);
   font-weight: 600;
-  border-left-color: var(--blue);
+  border-left-color: var(--ink);
 }
 
 .nav-bottom {
@@ -346,8 +347,8 @@ body {
 }
 
 .dyk-card {
-  background: var(--white);
-  border: 1px solid rgba(184,212,245,0.50);
+  background: linear-gradient(168deg, #cde4f5 0%, #e8f3fb 42%, var(--white) 74%);
+  border: 1px solid rgba(184,212,245,0.48);
   border-radius: var(--r8);
   padding: var(--sp-3h);
 }
@@ -356,34 +357,35 @@ body {
   font-size: var(--t-14);
   font-weight: 600;
   letter-spacing: var(--ls-card);
-  color: var(--text-60);
+  color: var(--ink);
   margin-bottom: var(--sp-2);
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 5px;
 }
 
 .dyk-text {
-  font-size: var(--t-10);
-  color: var(--text-60);
-  letter-spacing: var(--ls-card);
-  line-height: 1.5;
+  font-size: var(--t-12);
+  color: var(--text-80);
+  letter-spacing: var(--ls-small);
+  line-height: 1.55;
   margin-bottom: var(--sp-3h);
 }
 
 .btn-explain {
   font-family: var(--sans);
-  font-size: var(--t-13);
-  font-weight: 400;
-  letter-spacing: var(--ls-card);
-  color: var(--text-60);
+  font-size: var(--t-12);
+  font-weight: 500;
+  letter-spacing: var(--ls-small);
+  color: var(--text-80);
   border: 1px solid var(--border-faint);
   border-radius: var(--r);
-  padding: 3px var(--sp-2h);
-  background: transparent;
-  transition: color 0.12s, border-color 0.12s;
+  padding: 5px var(--sp-3);
+  background: var(--white);
+  box-shadow: var(--shadow-1);
+  transition: background 0.12s, border-color 0.12s;
 }
-.btn-explain:hover { color: var(--ink); border-color: var(--border-light); }
+.btn-explain:hover { background: var(--surface); border-color: var(--border-light); }
 
 .nav-collapse-btn {
   font-family: var(--sans);
@@ -541,7 +543,7 @@ body {
   align-items: center;
   justify-content: center;
   font-family: var(--mono);
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 600;
   color: var(--white);
   flex-shrink: 0;
@@ -710,6 +712,206 @@ body {
   border-top:  none;
   border-bottom: 6px solid var(--ink);
 }
+
+
+/* ── AI TICKET OFFER ───────────────────────────────────────────────────────── */
+.ai-ticket-offer {
+  padding: var(--sp-3) var(--sp-3h);
+  background: var(--blue-soft);
+  border: 1px solid var(--blue-border);
+  border-radius: var(--r8);
+  font-size: var(--t-12);
+}
+.ai-ticket-offer-text {
+  color: var(--text-80);
+  letter-spacing: var(--ls-small);
+  margin-bottom: var(--sp-2h);
+  line-height: 1.4;
+}
+.ai-ticket-offer-btns { display: flex; gap: var(--sp-2); }
+.ai-ticket-yes {
+  font-family: var(--sans);
+  font-size: var(--t-11);
+  font-weight: 500;
+  padding: 5px var(--sp-3);
+  background: var(--ink);
+  color: var(--white);
+  border-radius: var(--r);
+  cursor: pointer;
+  border: none;
+  letter-spacing: var(--ls-small);
+  transition: opacity 0.12s;
+}
+.ai-ticket-yes:hover { opacity: 0.82; }
+.ai-ticket-no {
+  font-family: var(--sans);
+  font-size: var(--t-11);
+  font-weight: 400;
+  padding: 5px var(--sp-3);
+  background: var(--white);
+  color: var(--text-60);
+  border-radius: var(--r);
+  cursor: pointer;
+  border: 1px solid var(--border-faint);
+  letter-spacing: var(--ls-small);
+  transition: background 0.12s;
+}
+.ai-ticket-no:hover { background: var(--surface); }
+
+/* ── AI TICKET CARD ────────────────────────────────────────────────────────── */
+.ai-ticket-card {
+  padding: var(--sp-3h);
+  background: var(--white);
+  border: 1px solid var(--done-border);
+  border-radius: var(--r8);
+  box-shadow: var(--shadow-2);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  max-width: calc(var(--sidebar-w) - 36px);
+}
+.ai-ticket-card-top {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+.ai-ticket-card-status {
+  font-family: var(--mono);
+  font-size: var(--t-9);
+  font-weight: 600;
+  letter-spacing: var(--ls-mono-lg);
+  text-transform: uppercase;
+  color: var(--done-text);
+}
+.ai-ticket-card-id {
+  font-family: var(--mono);
+  font-size: var(--t-9);
+  font-weight: 600;
+  letter-spacing: var(--ls-mono-lg);
+  text-transform: uppercase;
+  color: var(--text-40);
+  margin-left: auto;
+}
+.ai-ticket-card-title {
+  font-size: var(--t-12);
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: var(--ls-card);
+  line-height: 1.4;
+}
+.ai-ticket-card-desc {
+  font-size: var(--t-11);
+  color: var(--text-60);
+  letter-spacing: var(--ls-small);
+  line-height: 1.45;
+}
+.ai-ticket-card-footer {
+  font-family: var(--mono);
+  font-size: var(--t-9);
+  letter-spacing: var(--ls-mono-sm);
+  color: var(--text-40);
+  padding-top: var(--sp-1);
+  border-top: 1px solid var(--border-faint);
+}
+
+
+/* ── AI SCREEN CONTEXT OFFER ───────────────────────────────────────────────── */
+.ai-context-offer {
+  padding: var(--sp-3) var(--sp-3h);
+  background: var(--purple-bg);
+  border: 1px solid var(--purple-border);
+  border-radius: var(--r8);
+  font-size: var(--t-12);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.ai-context-offer-header {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+.ai-context-offer-label {
+  font-family: var(--mono);
+  font-size: var(--t-9);
+  font-weight: 600;
+  letter-spacing: var(--ls-mono-lg);
+  text-transform: uppercase;
+  color: var(--purple-text);
+}
+
+.ai-context-offer-text {
+  color: var(--text-80);
+  letter-spacing: var(--ls-small);
+  line-height: 1.45;
+}
+
+/* ── AI SCREEN CONTEXT CARD ────────────────────────────────────────────────── */
+.ai-context-card {
+  background: var(--white);
+  border: 1px solid var(--purple-border);
+  border-radius: var(--r8);
+  padding: var(--sp-2h) var(--sp-3);
+  box-shadow: var(--shadow-1);
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  max-width: calc(var(--sidebar-w) - 36px);
+  align-self: flex-end;
+  margin-left: auto;
+}
+
+.ai-context-card-top {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  color: var(--purple-text);
+}
+
+.ai-context-card-label {
+  font-family: var(--mono);
+  font-size: var(--t-9);
+  font-weight: 600;
+  letter-spacing: var(--ls-mono-lg);
+  text-transform: uppercase;
+  color: var(--purple-text);
+}
+
+.ai-context-card-summary {
+  font-size: var(--t-11);
+  color: var(--text-60);
+  letter-spacing: var(--ls-small);
+  line-height: 1.4;
+}
+
+
+/* ── AI INLINE FOLLOW-UPS ──────────────────────────────────────────────────── */
+.ai-follow-ups {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 2px 0 2px 32px;
+}
+
+.ai-inline-chip {
+  font-family: var(--sans);
+  font-size: var(--t-12);
+  letter-spacing: var(--ls-small);
+  color: var(--blue);
+  background: var(--white);
+  border: 1px solid var(--blue-border);
+  border-radius: var(--r);
+  padding: 6px var(--sp-3);
+  cursor: pointer;
+  text-align: left;
+  line-height: 1.4;
+  width: fit-content;
+  max-width: calc(var(--sidebar-w) - 80px);
+  transition: background 0.12s;
+}
+.ai-inline-chip:hover { background: var(--blue-soft); }
 
 
 /* ── SCROLLBARS ────────────────────────────────────────────────────────────── */

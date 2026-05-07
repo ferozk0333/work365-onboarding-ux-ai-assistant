@@ -103,26 +103,48 @@ function renderLearningShell() {
 function selectLesson(id) {
   activeLessonId = id;
   document.querySelectorAll('.lm-lesson').forEach(el => el.classList.remove('lm-active'));
-  document.getElementById(`lesson-item-${id}`)?.classList.add('lm-active');
+  document.getElementById('lesson-item-' + id)?.classList.add('lm-active');
 
-  const lesson    = LM_CONTENT[id];
+  const lesson = LM_CONTENT[id];
   if (!lesson) return;
 
-  const explainMsg = `Can you explain "${lesson.name}" in simple terms for someone new to Work 365?`;
-  const nextBtn    = lesson.nextLesson
-    ? `<button class="btn-next" onclick="selectLesson('${lesson.nextLesson}')">Next Lesson →</button>`
-    : `<button class="btn-next" style="background:var(--done-text);cursor:default" disabled>Module Complete ✓</button>`;
+  const nextBtn = lesson.nextLesson
+    ? '<button class="btn-next" onclick="selectLesson(\'' + lesson.nextLesson + '\')">Next Lesson →</button>'
+    : '<button class="btn-next" style="background:var(--done-text);cursor:default" disabled>Module Complete ✓</button>';
 
-  document.getElementById('lm-content').innerHTML = `
-    <div class="lm-vid-title">${lesson.name}</div>
-    <div class="lm-video">${LM_VIDEO_SVG}<div class="lm-play">▶</div></div>
-    <div class="lm-tx-mono">Transcript</div>
-    <div class="lm-tx">${lesson.tx1}</div>
-    <div class="lm-tx">${lesson.tx2}</div>
-    <div class="lm-tip">${lesson.tip}</div>
-    <button class="btn-explain" style="margin-bottom:var(--sp-4)" onclick="openAI(${JSON.stringify(explainMsg)})">Ask AI to explain →</button>
-    ${nextBtn}
-    <div style="clear:both"></div>`;
+  document.getElementById('lm-content').innerHTML =
+    '<div class="lm-vid-title">' + lesson.name + '</div>' +
+    '<div class="lm-video">' + LM_VIDEO_SVG + '<div class="lm-play">▶</div></div>' +
+    '<div class="lm-tx-mono">Transcript</div>' +
+    '<div class="lm-tx">' + lesson.tx1 + '</div>' +
+    '<div class="lm-tx">' + lesson.tx2 + '</div>' +
+    '<div class="lm-tip">' + lesson.tip + '</div>' +
+    '<button class="btn-explain" style="margin-bottom:var(--sp-4)" onclick="explainCurrentLesson()">Ask AI to explain →</button>' +
+    nextBtn +
+    '<div style="clear:both"></div>';
+}
+
+function explainCurrentLesson() {
+  var lesson = LM_CONTENT[activeLessonId];
+  if (!lesson) return;
+
+  var contextMsg =
+    'I am reading the "' + lesson.name + '" lesson in Work 365. Please explain this content clearly:\n\n' +
+    lesson.tx1 + '\n\n' + lesson.tx2 + '\n\nKey tip: ' + lesson.tip;
+
+  var followUps = [
+    'What is the most important action in ' + lesson.name + '?',
+    'What goes wrong if this step is skipped?',
+    'How does this connect to the next step in the process?',
+  ];
+
+  /* Open panel, show short label in bubble, send full context to LLM */
+  document.getElementById('ai-sidebar').classList.add('open');
+  hideChips();
+  appendUserBubble('Explain the ' + lesson.name + ' lesson');
+  _lastUserMsg = contextMsg;
+  _pendingFollowUps = followUps;
+  fetchReply(contextMsg);
 }
 
 

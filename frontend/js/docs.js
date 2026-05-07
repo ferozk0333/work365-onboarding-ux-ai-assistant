@@ -156,7 +156,7 @@ function openCategory(key) {
       ${sec.articles.map(a => `
         <div class="doc-row">
           <div class="doc-row-l">${DOC_ICON}${a.name}</div>
-          <button class="btn-view" onclick="openArticle('${a.key}', ${JSON.stringify(a.name)})">View</button>
+          <button class="btn-view" data-key="${a.key}" data-name="${a.name.replace(/"/g,'&quot;')}" onclick="openArticle(this.dataset.key, this.dataset.name)">View</button>
         </div>`).join('')}
     </div>`).join('');
 
@@ -201,7 +201,7 @@ function openArticle(key, name) {
             <div class="footer-help-row-l">${DOC_ICON} Read more articles</div>
             <span style="color:var(--text-40)">›</span>
           </div>
-          <div class="footer-help-row" onclick="openAI(${JSON.stringify(askMsg)})">
+          <div class="footer-help-row" data-q="${askMsg.replace(/"/g,'&quot;')}" onclick="openAI(this.dataset.q)">
             <div class="footer-help-row-l">
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 1h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4l-3 3V2a1 1 0 0 1 1-1z" stroke="currentColor" stroke-width="1.3" fill="none" stroke-linejoin="round"/></svg>
               Ask AI Assistant to explain
