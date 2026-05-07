@@ -1,5 +1,10 @@
+import os
+from pathlib import Path
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 
 from routers import chat, knowledge
 
@@ -14,10 +19,6 @@ app.add_middleware(
 
 app.include_router(chat.router)
 app.include_router(knowledge.router)
-# These routers will be added as features are built:
-# app.include_router(progress.router)
-# app.include_router(messages.router)
-# app.include_router(lessons.router)
 
 
 @app.get("/health")
@@ -30,6 +31,19 @@ def health():
     }
 
 
+# Serve frontend static files — path is relative to this file
+FRONTEND_DIR = Path(__file__).parent.parent / "frontend"
+
+if FRONTEND_DIR.exists():
+    app.mount("/assets", StaticFiles(directory=FRONTEND_DIR / "assets"), name="assets")
+    app.mount("/css",    StaticFiles(directory=FRONTEND_DIR / "css"),    name="css")
+    app.mount("/js",     StaticFiles(directory=FRONTEND_DIR / "js"),     name="js")
+
+    @app.get("/", response_class=FileResponse)
+    def serve_index():
+        return FileResponse(FRONTEND_DIR / "index.html")
+
+
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=False)
